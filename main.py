@@ -1,6 +1,29 @@
 from flask import Flask, render_template, request
 
 app = Flask(__name__)
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        input_username = request.form.get("username")
+        input_password = request.form.get("password")
+        from UserList import UserList
+        user = UserList.getUserByUsername(input_username)
+        if user:
+            # User is found, now check the password
+            import hashlib
+            # Password is stored as sha256 hash, no salt unfortunately :(
+            input_password = hashlib.sha256(input_password)
+            if input_password == user.getPassword():
+                print("Successful login")
+            else:
+                # Password does not match
+                print("Login failed. Please try again")
+        else:
+            # User is not found, login is failed
+            print("Username not found")
+    else:
+        pass
+
 @app.route("/")
 def index():
     # Due to lack of a database this will suffice as our "database call"
