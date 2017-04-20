@@ -1,8 +1,19 @@
 {% extends "stories.html" %}
 
 {% block story %}
-<pre class="prettyprint">
-    {% for line in code %}{{line}}
+
+{% if storyList|length > 0 %}
+    {% for story in storyList %}
+        {% if story.getCaption() != "" %}
+            <div class="caption">{{story.getCaption()}}</div>
+        {% endif %}
+        <pre class="prettyprint">
+            {% for line in story.getCodeList() %}{{line}}
+            {% endfor %}
+        </pre>
     {% endfor %}
-</pre>
+{% else %}
+    <p>{{username}} has no stories!</p>
+{% endif %}
+
 {% endblock %}

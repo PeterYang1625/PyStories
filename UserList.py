@@ -16,10 +16,9 @@ class UserList():
     def get(self, index):
         return self.users[index]
 
-    # If users are added or deleted, their UIDs
-    # may not align with the users arr index
-    def getUserByID(self, index):
-        for User in self.users:
+    @staticmethod
+    def getUserByID(index):
+        for User in UserList.users:
             if User.getUID() == index:
                 return User
         # Return false on user not found

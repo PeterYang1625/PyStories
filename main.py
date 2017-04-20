@@ -10,15 +10,31 @@ def index():
 
 @app.route("/feed", methods=["GET", "POST"])
 def userFeed():
+    # Post UID of the feed we want to view
     if request.method == "POST":
-        linesOfCode = []
-        with open("userdata/peter/A3.py", "r") as file:
-            for line in file:
-                line = line.rstrip()
-                linesOfCode.append(line)
-        return render_template("stories_components.html", code=linesOfCode)
+        userID = int(request.form.get("uid"))
+        # Yes this is our stand in for not having SQL
+        from UserList import UserList
+        # Get the appropriate UserByID and then get that storyList
+        targetUser = UserList.getUserByID(userID)
+        storyList = []
+        if not targetUser:
+            print(userID)
+            print("Debug: POSTed user id does not exist")
+        else:
+            storyList = targetUser.getStoryList()
+
+        return render_template(
+            "stories_components.html",
+            storyList=storyList,
+            username=targetUser.getName()
+        )
     else:
-        pass
+        # Else this is a GET request. Under normal circumstances, coming to
+        # feed should be from posting the UID in order to fetch and appropriate
+        # stories feed; however directly navigating to this link without POST
+        # data would yield nothing, so print a 404 page
+        return render_template("404.html")
 
 @app.route("/peter")
 def userPage():

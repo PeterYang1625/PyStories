@@ -2,9 +2,9 @@
 
 {% block menuItems %}
 {% for user in users %}
-<form action="feed" method="POST" id="{{user.getUID}}" class="menu-item">
-    <input type="hidden" name="uid" value="{{user.getUID}}">
-    <div onclick="document.getElementById('{{user.getUID}}').submit()">
+<form action="feed" method="POST" id="{{user.getUID()}}" class="menu-item">
+    <input type="hidden" name="uid" value="{{user.getUID()}}">
+    <div onclick="document.getElementById('{{user.getUID()}}').submit()">
         <div class="profile-picture">
             <img src="{{user.getImage()}}">
         </div>
