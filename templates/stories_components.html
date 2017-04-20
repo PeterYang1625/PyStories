@@ -1,0 +1,8 @@
+{% extends "stories.html" %}
+
+{% block story %}
+<pre class="prettyprint">
+    {% for line in code %}{{line}}
+    {% endfor %}
+</pre>
+{% endblock %}
