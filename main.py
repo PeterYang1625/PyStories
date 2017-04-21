@@ -1,38 +1,54 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
+
+@app.route("/")
+def index():
+    return render_template("index.html")
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
+        # Grab POST data from submitted form
         input_username = request.form.get("username")
         input_password = request.form.get("password")
+        # Call from UserList "database"
         from UserList import UserList
+        # Grab the intended user as indicated by the form POST
         user = UserList.getUserByUsername(input_username)
+        # Default success to false, only set to true after verification below
+        success = False
         if user:
             # User is found, now check the password
             import hashlib
             # Password is stored as sha256 hash, no salt unfortunately :(
-            input_password = hashlib.sha256(input_password)
-            if input_password == user.getPassword():
-                print("Successful login")
-            else:
-                # Password does not match
-                print("Login failed. Please try again")
+            input_password = hashlib.sha256(input_password.encode("utf-8"))
+            # Convert binary data to hex readable stuff
+            input_password = input_password.hexdigest()
+            database_password = user.getPassword().hexdigest()
+            if input_password == database_password:
+                success = True
+            # Else password does not match
+        # Else, user is not found
+        if success:
+            return redirect(url_for("feed"))
         else:
-            # User is not found, login is failed
-            print("Username not found")
+            message = "Login failed. Please try again"
+            return render_template("login.html", message=message)
     else:
-        pass
+        # Else method is GET - display login form
+        return render_template("login.html")
 
-@app.route("/")
-def index():
+@app.route("/feed")
+def feed():
     # Due to lack of a database this will suffice as our "database call"
     from UserList import UserList
     users = UserList.users
+    # Pass users to the render template which will iteratively render all of them
     return render_template("menu_components.html", users=users)
 
-@app.route("/feed", methods=["GET", "POST"])
-def userFeed():
+@app.route("/stories", methods=["GET", "POST"])
+def stories():
     # Post UID of the feed we want to view
     if request.method == "POST":
         userID = int(request.form.get("uid"))
@@ -40,11 +56,16 @@ def userFeed():
         from UserList import UserList
         # Get the appropriate UserByID and then get that storyList
         targetUser = UserList.getUserByID(userID)
-        storyList = []
         if not targetUser:
-            print(userID)
-            print("Debug: POSTed user id does not exist")
+            # User is not found in the list, despite being the UID being
+            # the post data, which actually should not happen
+            error = "Error Data</br>" \
+                    "User ID: " +str(userID)\
+                    + "<br>Debug: POSTed user id does not exist"
+            return render_template("404.html", error=error)
         else:
+            # Set storyList to the specified user's list and push
+            # this data to the render_template
             storyList = targetUser.getStoryList()
 
         return render_template(
@@ -59,6 +80,7 @@ def userFeed():
         # data would yield nothing, so print a 404 page
         return render_template("404.html")
 
+"""
 @app.route("/peter")
 def userPage():
     linesOfCode = []
@@ -75,8 +97,7 @@ def userPage():
     else:
         subprocess.Popen("python3 userdata/peter/A3.py")
     return render_template("stories_components.html", code=linesOfCode)
+"""
 
 if __name__ == "__main__":
     app.run()
-
-index()

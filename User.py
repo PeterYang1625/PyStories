@@ -18,8 +18,6 @@ class User():
         relativePath = "userdata" + directory
         fullPath = os.path.join(currPath, relativePath)
         filesList = os.listdir(fullPath)
-        print(fullPath)
-        print(filesList)
         for file in filesList:
             projectPath = os.path.join(fullPath, file)
             storiesList.append(Story(projectPath))
