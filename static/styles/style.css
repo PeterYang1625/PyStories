@@ -1,3 +1,6 @@
+/*
+    START General Style
+*/
 * {
     box-sizing: border-box;
 }
@@ -14,10 +17,12 @@ body {
 }
 
 footer {
+    position: fixed;
+    bottom: 0;
     padding: 1rem 0;
     width: 100%;
     text-align: center;
-    background-color: #222;
+    background-color: black;
     color: #eee;
 }
 
@@ -25,6 +30,106 @@ footer a{
     color: #eee;
 }
 
+.vert-center {
+    display: flex;
+    align-items: center;
+    height: 100vh;
+}
+
+.message {
+    position: fixed;
+    top: 0;
+    padding: 1rem 0;
+    text-align: center;
+    width: 100%;
+    color: white;
+    background: rgb(153, 27, 30);
+    animation: slideDown 0.5s;
+}
+@keyframes slideDown {
+    from { top: -3rem }
+    to { top: 0rem }
+}
+/*
+    END General Style
+*/
+
+/*
+    START Landing Page Style
+*/
+#load {
+    position: absolute;
+    background: rgb(153, 27, 30);
+    color: white;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeOut 1s;
+    animation-delay: 3s;
+    animation-fill-mode: both;
+}
+
+#load div {
+    text-align: center;
+    animation: fadeIn 1s;
+    animation-delay: 1s;
+    animation-fill-mode: both;
+}
+
+#load div img {
+    width: 3rem;
+}
+
+/*
+    Animations
+*/
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+        visibility: visible;
+    }
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+/*
+    END Landing Page Style
+*/
+
+/*
+    START Login Style
+*/
+    #login {
+        margin: auto;
+        text-align: center;
+        background-color: #eee;
+        max-width: 300px;
+        border: solid #555 2px;
+        border-radius: 10px;
+        padding: 2rem;
+    }
+
+    #login input {
+        margin: 0.5rem 0;
+        width: 80%;
+        border: none;
+        padding: 0.25rem;
+    }
+/*
+    END Login Style
+*/
+
+/*
+    START Feed Style
+*/
 .menu-item {
     width: 100%;
     clear: both;
@@ -37,10 +142,6 @@ footer a{
 .menu-item:hover {
     left: 5%;
     cursor: pointer;
-}
-
-.menu-item a {
-    color: #222;
 }
 
 .menu-item img{
@@ -79,6 +180,13 @@ footer a{
     font-size: large;
 }
 
+/*
+    END Feed Style
+*/
+
+/*
+    START Pre-formatted Code Style
+*/
 pre {
     font-family: monospace;
     display: inline;
@@ -91,6 +199,7 @@ pre.prettyprint {
     overflow: auto;
 }
 
+/* CSS Courtesy of Google Code Prettify */
 /* desert scheme ported from vim to google prettify */
 pre.prettyprint { display: block; background-color: #333 }
 pre .nocode { background-color: none; color: #000 }
@@ -109,19 +218,6 @@ pre .dec { color: #98fb98 } /* decimal         - lightgreen */
 /* Specify class=linenums on a pre to get line numbering */
 ol.linenums { margin-top: 0; margin-bottom: 0; color: #AEAEAE } /* IE indents via margin-left */
 li.L0,li.L1,li.L2,li.L3,li.L5,li.L6,li.L7,li.L8 { list-style-type: none }
-/* Alternate shading for lines */
-li.L1,li.L3,li.L5,li.L7,li.L9 { }
-
-@media print {
-  pre.prettyprint { background-color: none }
-  pre .str, code .str { color: #060 }
-  pre .kwd, code .kwd { color: #006; font-weight: bold }
-  pre .com, code .com { color: #600; font-style: italic }
-  pre .typ, code .typ { color: #404; font-weight: bold }
-  pre .lit, code .lit { color: #044 }
-  pre .pun, code .pun { color: #440 }
-  pre .pln, code .pln { color: #000 }
-  pre .tag, code .tag { color: #006; font-weight: bold }
-  pre .atn, code .atn { color: #404 }
-  pre .atv, code .atv { color: #060 }
-}
+/*
+    END Pre-formatted Code Style
+*/

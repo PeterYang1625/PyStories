@@ -4,11 +4,13 @@
     <div class="message">{{message}}</div>
 {% endif %}
 <div class="container">
-    <form action="/login" method="POST">
-        <input type="text" name="username" placeholder="Name" value="Peter Yang">
-        <input type="password" name="password" placeholder="Password" value="password">
-        <input type="submit" value="Submit">
-    </form>
+    <div class="vert-center">
+        <form action="/login" method="POST" id="login">
+            <input type="text" name="username" placeholder="Name" value="Peter Yang">
+            <input type="password" name="password" placeholder="Password" value="password">
+            <input type="submit" value="Submit">
+        </form>
+    </div>
 </div>
 </body>
 
