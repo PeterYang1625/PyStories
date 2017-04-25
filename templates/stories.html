@@ -1,9 +1,8 @@
-{% include "header.html" %}
-<body>
+{% extends "base_layout.html" %}
+
+{% block layout %}
 <div class="container">
     {% block story %}
     {% endblock %}
 </div>
-</body>
-
-{% include "footer.html" %}
+{% endblock %}

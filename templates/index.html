@@ -1,10 +1,10 @@
-{% include "header.html" %}
-<body>
+{% extends "base_layout.html" %}
+{% block layout %}
 <div id="load">
     <div>
-        <img src="{{url_for('static', filename='img/favicon.ico')}}">
+        <img src="{{url_for('static', filename='img/logo.png')}}">
         <h1>PyStories</h1>
-        <p>Social media for code</p>
+        <p>Social media for code.</p>
     </div>
 </div>
 <div class="container">
@@ -12,6 +12,4 @@
     <p>Ever noticed how everything in 2017 just has to have a stories feed? Well, now it's even better!</p>
     <a href="/login">Click here to login</a>
 </div>
-</body>
-
-{% include "footer.html" %}
+{% endblock %}

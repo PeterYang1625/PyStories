@@ -1,0 +1,34 @@
+{% extends "base_layout.html" %}
+
+{% block layout %}
+
+<div class="container">
+    <div onclick="slide('up')">
+        Upload
+    </div>
+    <hr>
+    {% block menuItems %}
+    {% endblock %}
+    <div class="vert-center slide-hide" id="upload-container">
+        <button onclick="slide('down')" class="close">X</button>
+        <form>
+            <input type="text" name="title" placeholder="Title" required>
+            <input type="file" name="file" required>
+            <input type="submit" value="Post">
+        </form>
+    </div>
+    <script>
+        function slide(direction){
+            var container = document.getElementById("upload-container")
+            if (direction == "up"){
+                container.classList.remove("slide-hide")
+                container.classList.add("slide-show")
+            }
+            else if (direction == "down") {
+                container.classList.remove("slide-show")
+                container.classList.add("slide-hide")
+            }
+        }
+    </script>
+</div>
+{% endblock %}

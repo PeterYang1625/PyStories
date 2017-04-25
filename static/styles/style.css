@@ -30,12 +30,41 @@ footer a{
     color: #eee;
 }
 
+input {
+    margin: 0.5rem 0;
+    width: 80%;
+    border: none;
+    padding: 0.25rem;
+}
 .vert-center {
+    background-color: white;
     display: flex;
     align-items: center;
     height: 100vh;
 }
 
+.slide-hide {
+    position: absolute;
+    top: 100vh;
+    transition: top 1s;
+}
+
+.slide-show {
+    position: absolute;
+    top: 0vh;
+    transition: top 1s;
+}
+
+.close {
+    font-size: 2rem;
+    font-weight: bold;
+    position: absolute;
+    margin: 1rem;
+    top: 0;
+    right: 0;
+    border: none;
+    background-color: transparent;
+}
 .message {
     position: fixed;
     top: 0;
@@ -67,8 +96,9 @@ footer a{
     align-items: center;
     justify-content: center;
     animation: fadeOut 1s;
-    animation-delay: 3s;
+    animation-delay: 4s;
     animation-fill-mode: both;
+    z-index: 100;
 }
 
 #load div {
@@ -79,7 +109,16 @@ footer a{
 }
 
 #load div img {
-    width: 3rem;
+    width: 5rem;
+}
+
+#load div h1 {
+    margin: 0;
+    font-size: 3rem;
+}
+
+#load div p {
+    font-style: italic;
 }
 
 /*
@@ -111,17 +150,9 @@ footer a{
         margin: auto;
         text-align: center;
         background-color: #eee;
-        max-width: 300px;
         border: solid #555 2px;
         border-radius: 10px;
         padding: 2rem;
-    }
-
-    #login input {
-        margin: 0.5rem 0;
-        width: 80%;
-        border: none;
-        padding: 0.25rem;
     }
 /*
     END Login Style
@@ -180,6 +211,10 @@ footer a{
     font-size: large;
 }
 
+#upload-container{
+    width: 100vw;
+    margin: auto;
+}
 /*
     END Feed Style
 */

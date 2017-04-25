@@ -45,7 +45,7 @@ def feed():
     from UserList import UserList
     users = UserList.users
     # Pass users to the render template which will iteratively render all of them
-    return render_template("menu_components.html", users=users)
+    return render_template("feed_components.html", users=users)
 
 @app.route("/stories", methods=["GET", "POST"])
 def stories():
@@ -59,10 +59,8 @@ def stories():
         if not targetUser:
             # User is not found in the list, despite being the UID being
             # the post data, which actually should not happen
-            error = "Error Data</br>" \
-                    "User ID: " +str(userID)\
-                    + "<br>Debug: POSTed user id does not exist"
-            return render_template("404.html", error=error)
+            error = "User Authentication error. Please login again."
+            return render_template("login.html", message=error)
         else:
             # Set storyList to the specified user's list and push
             # this data to the render_template
@@ -77,8 +75,14 @@ def stories():
         # Else this is a GET request. Under normal circumstances, coming to
         # feed should be from posting the UID in order to fetch and appropriate
         # stories feed; however directly navigating to this link without POST
-        # data would yield nothing, so print a 404 page
-        return render_template("404.html")
+        # data would yield nothing, so redirect to login page
+        error = "This is a restricted page. Please login to continue."
+        return render_template("login.html", message=error)
+
+# Page not found error handling
+@app.errorhandler(404)
+def pageNotFound(e):
+    return render_template("404.html"), 404
 
 """
 @app.route("/peter")
