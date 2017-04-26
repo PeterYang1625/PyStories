@@ -20,7 +20,7 @@ class User():
         filesList = os.listdir(fullPath)
         for file in filesList:
             projectPath = os.path.join(fullPath, file)
-            storiesList.append(Story(projectPath))
+            storiesList.append(Story(projectPath, "haha code is hard xD"))
         # Stories List
         self.__storiesList = storiesList
 

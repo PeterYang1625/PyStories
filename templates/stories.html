@@ -2,14 +2,18 @@
 
 {% block layout %}
 <div class="container">
+    <div class="story-header">
+        <h2>{{username}}'s Stories</h2>
+        <a href="/feed" class="close">X</a>
+    </div>
     {% block story %}
     {% endblock %}
 </div>
 <div class="story-navigation">
     <div>
-        <div id="back" onclick="backwards()"><</div>
+        <div id="back" onclick="backwards()">&lt;</div>
         <div id="run">Run Code</div>
-        <div id="next" onclick="forwards()">></div>
+        <div id="next" onclick="forwards()">&gt;</div>
     </div>
 </div>
 <script>

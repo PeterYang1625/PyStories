@@ -221,6 +221,21 @@ input {
 /*
     START Stories Style
 */
+.story-header {
+    background-color: #222;
+    color: white;
+}
+
+.story-header h2 {
+    margin: 0;
+    padding: 1rem;
+}
+
+.story-header a {
+    text-decoration: none;
+}
+
+
 .story.hide {
     display: none;
 }
@@ -274,7 +289,6 @@ input {
 */
 pre {
     margin: 0;
-    border: none;
     font-family: monospace;
     display: inline;
     padding: 5rem;
@@ -285,6 +299,7 @@ pre {
 pre.prettyprint {
     width: auto;
     overflow: auto;
+    border: none !important;
 }
 
 /* CSS Courtesy of Google Code Prettify */
