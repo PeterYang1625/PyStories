@@ -3,15 +3,26 @@
 {% block story %}
 
 {% if storyList|length > 0 %}
-    {% for story in storyList %}
-        {% if story.getCaption() != "" %}
-            <div class="caption">{{story.getCaption()}}</div>
-        {% endif %}
-        <pre class="prettyprint">
-            {% for line in story.getCodeList() %}{{line}}
-            {% endfor %}
-        </pre>
-    {% endfor %}
+        <div class="story show">
+            {% if storyList[0].getCaption() != "" %}
+                <div class="caption">{{storyList[0].getCaption()}}</div>
+            {% endif %}
+            <pre class="prettyprint">
+{% for line in storyList[0].getCodeList() %}{{line}}
+{% endfor %}
+            </pre>
+        </div>
+        {% for story in storyList[1:] %}
+            <div class="story hide">
+            {% if story.getCaption() != "" %}
+                <div class="caption">{{story.getCaption()}}</div>
+            {% endif %}
+                <pre class="prettyprint">
+{% for line in story.getCodeList() %}{{line}}
+{% endfor %}
+                </pre>
+            </div>
+        {% endfor %}
 {% else %}
     <p>{{username}} has no stories!</p>
 {% endif %}

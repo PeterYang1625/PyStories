@@ -1,4 +1,7 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, session
+from Story import Story
+from UserList import UserList
+import os
 
 app = Flask(__name__)
 
@@ -12,8 +15,6 @@ def login():
         # Grab POST data from submitted form
         input_username = request.form.get("username")
         input_password = request.form.get("password")
-        # Call from UserList "database"
-        from UserList import UserList
         # Grab the intended user as indicated by the form POST
         user = UserList.getUserByUsername(input_username)
         # Default success to false, only set to true after verification below
@@ -28,6 +29,8 @@ def login():
             database_password = user.getPassword().hexdigest()
             if input_password == database_password:
                 success = True
+                # Store userID in a session to tell program who is logged in
+                session["uid"] = user.getUID()
             # Else password does not match
         # Else, user is not found
         if success:
@@ -41,19 +44,55 @@ def login():
 
 @app.route("/feed")
 def feed():
-    # Due to lack of a database this will suffice as our "database call"
-    from UserList import UserList
     users = UserList.users
     # Pass users to the render template which will iteratively render all of them
     return render_template("feed_components.html", users=users)
+
+def isValidFileType(filename):
+    ALLOWED_EXTENSIONS = ("zip", "py")
+    return "." in filename and filename.split(".", 1)[1] in ALLOWED_EXTENSIONS
+
+@app.route("/upload", methods=["GET", "POST"])
+def upload():
+    if request.method == "POST":
+        # Grab POST data from submitted form
+        input_title = request.form.get("title")
+        input_file = request.files["file"]
+        # Get specific user based on uid stored in session
+        user = UserList.getUserByID(session["uid"])
+
+        # Handle file upload
+        isValidFile = True
+        message = "Upload successful"
+        filename = input_file.filename
+        # Checks for valid file name / format
+        if not isValidFileType(filename):
+            isValidFile = False
+            message = "Invalid file type"
+        if isValidFile:
+
+            # Get the directory of this current User.py script
+            currPath = os.path.dirname(__file__)
+            relativePath = "/userdata" + user.getDirectory()
+            projectPath = currPath + relativePath + filename
+            input_file.save(projectPath)
+        else:
+            # If invalid, return now, providing an error message
+            return redirect(url_for("feed", message=message))
+
+        # Otherwise, continue to make a new story
+        newStory = Story(projectPath, input_title)
+        user.addStory(newStory)
+        return redirect(url_for("feed", message=message))
+    else:
+        # Else method is GET - display login form
+        return render_template("login.html", message="Must be logged in to upload.")
 
 @app.route("/stories", methods=["GET", "POST"])
 def stories():
     # Post UID of the feed we want to view
     if request.method == "POST":
         userID = int(request.form.get("uid"))
-        # Yes this is our stand in for not having SQL
-        from UserList import UserList
         # Get the appropriate UserByID and then get that storyList
         targetUser = UserList.getUserByID(userID)
         if not targetUser:
@@ -102,6 +141,8 @@ def userPage():
         subprocess.Popen("python3 userdata/peter/A3.py")
     return render_template("stories_components.html", code=linesOfCode)
 """
+
+app.secret_key = "ITP115"
 
 if __name__ == "__main__":
     app.run()

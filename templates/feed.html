@@ -9,26 +9,29 @@
     <hr>
     {% block menuItems %}
     {% endblock %}
-    <div class="vert-center slide-hide" id="upload-container">
+</div>
+<div class="vert-center slide-hide" id="upload-container">
+    <div class="container">
         <button onclick="slide('down')" class="close">X</button>
-        <form>
+        <form action="/upload" method="POST" enctype="multipart/form-data">
+            <h1>Upload Project</h1>
             <input type="text" name="title" placeholder="Title" required>
             <input type="file" name="file" required>
             <input type="submit" value="Post">
         </form>
     </div>
-    <script>
-        function slide(direction){
-            var container = document.getElementById("upload-container")
-            if (direction == "up"){
-                container.classList.remove("slide-hide")
-                container.classList.add("slide-show")
-            }
-            else if (direction == "down") {
-                container.classList.remove("slide-show")
-                container.classList.add("slide-hide")
-            }
-        }
-    </script>
 </div>
+<script>
+    function slide(direction){
+        var container = document.getElementById("upload-container")
+        if (direction == "up"){
+            container.classList.remove("slide-hide")
+            container.classList.add("slide-show")
+        }
+        else if (direction == "down") {
+            container.classList.remove("slide-show")
+            container.classList.add("slide-hide")
+        }
+    }
+</script>
 {% endblock %}

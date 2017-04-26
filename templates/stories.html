@@ -5,4 +5,39 @@
     {% block story %}
     {% endblock %}
 </div>
+<div class="story-navigation">
+    <div>
+        <div id="back" onclick="backwards()"><</div>
+        <div id="run">Run Code</div>
+        <div id="next" onclick="forwards()">></div>
+    </div>
+</div>
+<script>
+    var STORIES = {
+        list: document.getElementsByClassName("story"),
+        currIndex: 0
+    }
+    function forwards() {
+        if (STORIES.currIndex < STORIES.list.length - 1) {
+            hideStory(STORIES.currIndex)
+            STORIES.currIndex++
+            showStory(STORIES.currIndex)
+        }
+    }
+    function backwards() {
+        if (STORIES.currIndex > 0) {
+            hideStory(STORIES.currIndex)
+            STORIES.currIndex--
+            showStory(STORIES.currIndex)
+        }
+    }
+    function showStory(index) {
+        STORIES.list[index].classList.remove("hide")
+        STORIES.list[index].classList.add("show")
+    }
+    function hideStory(index) {
+        STORIES.list[index].classList.remove("show")
+        STORIES.list[index].classList.add("hide")
+    }
+</script>
 {% endblock %}

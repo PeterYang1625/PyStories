@@ -2,7 +2,7 @@ from User import User
 
 class UserList():
     users = [
-        User("Peter Yang", "password", "/peter")
+        User("Peter Yang", "password", "/peter/")
         # User("Kevin Tran", "password"),
         # User("Brandon Nguyen", "password"),
         # User("Jesus Christ", "password"),
