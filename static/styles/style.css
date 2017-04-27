@@ -161,6 +161,23 @@ input {
 /*
     START Feed Style
 */
+#upload {
+    max-width: 100%;
+    color: rgb(153, 27, 30);
+    border: solid 1px rgb(153, 27, 30);
+    margin: 1rem;
+    padding: 1rem;
+    transition: all 0.25s;
+    text-align: center;
+    font-size: x-large;
+}
+
+#upload:hover {
+    background-color: rgb(153, 27, 30);
+    color: white;
+    pointer: cursor;
+}
+
 .menu-item {
     width: 100%;
     clear: both;
@@ -222,7 +239,9 @@ input {
     START Stories Style
 */
 .story-header {
-    background-color: #222;
+    position: fixed;
+    width: 100%;
+    background: linear-gradient(black, rgba(0, 0, 0, 0))
     color: white;
 }
 

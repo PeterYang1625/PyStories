@@ -29,7 +29,7 @@ def login():
             database_password = user.getPassword().hexdigest()
             if input_password == database_password:
                 success = True
-                # Store userID in a session to tell program who is logged in
+                # Save UID to a session variable
                 session["uid"] = user.getUID()
             # Else password does not match
         # Else, user is not found
@@ -108,7 +108,8 @@ def stories():
         return render_template(
             "stories_components.html",
             storyList=storyList,
-            username=targetUser.getName()
+            username=targetUser.getName(),
+            uid=userID
         )
     else:
         # Else this is a GET request. Under normal circumstances, coming to
@@ -117,6 +118,34 @@ def stories():
         # data would yield nothing, so redirect to login page
         error = "This is a restricted page. Please login to continue."
         return render_template("login.html", message=error)
+
+@app.route("/runcode", methods=["GET", "POST"])
+def runCode():
+    if request.method == "POST":
+        userID = int(request.form.get("user"))
+        index = int(request.form.get("ind"))
+
+        user = UserList.getUserByID(userID)
+        # Get the directory of this current User.py script
+        currPath = os.path.dirname(__file__)
+        relativePath = "userdata" + user.getDirectory()
+        fullPath = os.path.join(currPath, relativePath)
+        filesList = os.listdir(fullPath)
+        fileDirectory = filesList[index]
+        actualPath = currPath + "/" + relativePath + filesList[index]
+        import subprocess
+        # Checks if Windows Platform
+        if os.name == "nt":
+            subprocess.Popen("python " + actualPath)
+            # subprocess.Popen("python userdata/peter/A3.py")
+        # Otherwise on macOS / OSX
+        else:
+            subprocess.Popen("python3 " + actualPath)
+        return "Good"
+    # Should only be a POST
+    else:
+        error = "This is a restricted page. Please login to continue."
+        return redirect(url_for("login", message=error))
 
 # Page not found error handling
 @app.errorhandler(404)

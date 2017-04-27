@@ -12,7 +12,7 @@
 <div class="story-navigation">
     <div>
         <div id="back" onclick="backwards()">&lt;</div>
-        <div id="run">Run Code</div>
+        <div id="run" onclick="runcode({{uid}}, 0)">Run Code</div>
         <div id="next" onclick="forwards()">&gt;</div>
     </div>
 </div>
@@ -26,6 +26,8 @@
             hideStory(STORIES.currIndex)
             STORIES.currIndex++
             showStory(STORIES.currIndex)
+            runner = document.getElementById("run")
+            runner.onclick = runcode({{uid}}, STORIES.currIndex)
         }
     }
     function backwards() {
@@ -33,6 +35,8 @@
             hideStory(STORIES.currIndex)
             STORIES.currIndex--
             showStory(STORIES.currIndex)
+            runner = document.getElementById("run")
+            runner.onclick = runcode({{uid}}, STORIES.currIndex)
         }
     }
     function showStory(index) {
@@ -42,6 +46,12 @@
     function hideStory(index) {
         STORIES.list[index].classList.remove("show")
         STORIES.list[index].classList.add("hide")
+    }
+    function runcode(uid, sid) {
+          var xhttp = new XMLHttpRequest()
+          xhttp.open("POST", "runcode", true)
+          xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          xhttp.send("user=" + uid + "&ind=" + sid)
     }
 </script>
 {% endblock %}
