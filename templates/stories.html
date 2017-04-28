@@ -1,7 +1,8 @@
 {% extends "base_layout.html" %}
 
 {% block layout %}
-<div class="container">
+<div class="story-body">
+<div class="container story-body">
     <div class="story-header">
         <h2>{{username}}'s Stories</h2>
         <a href="/feed" class="close">X</a>
@@ -15,6 +16,7 @@
         <div id="run" onclick="runcode({{uid}}, 0)">Run Code</div>
         <div id="next" onclick="forwards()">&gt;</div>
     </div>
+</div>
 </div>
 <script>
     var STORIES = {
