@@ -2,12 +2,10 @@ from User import User
 
 class UserList():
     users = [
-        User("Peter Yang", "password", "/peter/"),
-        User("Kevin Tran", "password", "/peter/"),
-        User("Brandon Nguyen", "password", "/peter/"),
-        User("Jesus Christ", "password", "/peter/"),
-        User("Jason Bourne", "password", "/peter/"),
-        User("John Doe", "password", "/peter/")
+        User("Peter Yang", "password", "/peter/", "/static/img/peter.jpg"),
+        User("Trina Gregory", "password", "/trina/", "/static/img/trina.jpg"),
+        User("Rob Parke", "password", "/rob/", "/static/img/rob.jpg"),
+        User("John Doe", "password", "/john/")
     ]
 
     @staticmethod
