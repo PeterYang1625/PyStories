@@ -24,7 +24,9 @@
             </div>
         {% endfor %}
 {% else %}
-    <p>{{username}} has no stories!</p>
+    <div class="vert-center no-stories">
+        <p>{{username}} has no stories!</p>
+    </div>
 {% endif %}
 
 {% endblock %}

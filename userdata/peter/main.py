@@ -49,7 +49,7 @@ def feed():
     return render_template("feed_components.html", users=users)
 
 def isValidFileType(filename):
-    ALLOWED_EXTENSIONS = ("py")
+    ALLOWED_EXTENSIONS = ("zip", "py")
     return "." in filename and filename.split(".", 1)[1] in ALLOWED_EXTENSIONS
 
 @app.route("/upload", methods=["GET", "POST"])

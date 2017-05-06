@@ -2,9 +2,11 @@
 
 {% block menuItems %}
 {% for user in users %}
-<form action="stories" method="POST" id="{{user.getUID()}}"
-      onclick="document.getElementById('{{user.getUID()}}').submit()"
-      class="menu-item">
+<form action="stories"
+      method="POST"
+      id="{{user.getUID()}}"
+      class="menu-item"
+      onclick="document.getElementById('{{user.getUID()}}').submit()">
     <input type="hidden" name="uid" value="{{user.getUID()}}">
     <div class="profile-picture">
         <img src="{{user.getImage()}}">

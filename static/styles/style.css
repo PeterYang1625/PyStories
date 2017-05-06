@@ -248,8 +248,20 @@ input {
 /*
     START Stories Style
 */
+.no-stories {
+    background-color: #111;
+    color: white;
+    text-align: center;
+}
+
+.no-stories p {
+    width: 100%;
+}
+
 .story-body {
     background-color: black;
+    color: white;
+    height: 100vh;
 }
 
 .story-header {
