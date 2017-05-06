@@ -3,27 +3,40 @@
 {% block story %}
 
 {% if storyList|length > 0 %}
-        <div class="story show">
-            {% if storyList[0].getCaption() != "" %}
-                <div class="caption">{{storyList[0].getCaption()}}</div>
-            {% endif %}
-            <pre class="prettyprint">
+    <!--First, print out the story that is initially displayed-->
+    <div class="story show">
+        <!--Show caption if it exists-->
+        {% if storyList[0].getCaption() != "" %}
+            <div class="caption">{{storyList[0].getCaption()}}</div>
+        {% endif %}
+
+        <!--This prints out the program's code-->
+        <pre class="prettyprint">
 {% for line in storyList[0].getCodeList() %}{{line}}
 {% endfor %}
-            </pre>
-        </div>
-        {% for story in storyList[1:] %}
-            <div class="story hide">
-            {% if story.getCaption() != "" %}
-                <div class="caption">{{story.getCaption()}}</div>
-            {% endif %}
-                <pre class="prettyprint">
+        </pre>
+    </div>
+
+<!--For any remaining story, have them hidden by now, shown only through JS-->
+{% for story in storyList[1:] %}
+    <div class="story hide">
+    {% if story.getCaption() != "" %}
+        <div class="caption">{{story.getCaption()}}</div>
+    {% endif %}
+        <pre class="prettyprint">
 {% for line in story.getCodeList() %}{{line}}
 {% endfor %}
-                </pre>
-            </div>
-        {% endfor %}
+        </pre>
+    </div>
+{% endfor %}
+
+<!--If no stories, print a message saying so-->
 {% else %}
+    <style>
+        .story-navigation {
+            display: none;
+        }
+    </style>
     <div class="vert-center no-stories">
         <p>{{username}} has no stories!</p>
     </div>

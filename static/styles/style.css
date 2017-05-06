@@ -241,6 +241,25 @@ input {
     border-radius: 10px;
     padding: 2rem;
 }
+
+.logout {
+    color: white;
+    background-color: #222;
+    width: 100%;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+}
+
+.logout a {
+    text-decoration: none;
+}
+
+.logout a:visited {
+
+    color: white;
+}
 /*
     END Feed Style
 */

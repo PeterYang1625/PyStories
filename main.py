@@ -70,10 +70,9 @@ def upload():
             isValidFile = False
             message = "Invalid file type"
         if isValidFile:
-
             # Get the directory of this current User.py script
             currPath = os.path.dirname(__file__)
-            relativePath = "/userdata" + user.getDirectory()
+            relativePath = "userdata" + user.getDirectory()
             projectPath = currPath + relativePath + filename
             input_file.save(projectPath)
         else:
@@ -122,26 +121,30 @@ def stories():
 @app.route("/runcode", methods=["GET", "POST"])
 def runCode():
     if request.method == "POST":
-        userID = int(request.form.get("user"))
-        index = int(request.form.get("ind"))
+        POST_userID = int(request.form.get("user"))
+        POST_index = int(request.form.get("ind"))
 
-        user = UserList.getUserByID(userID)
-        # Get the directory of this current User.py script
+        user = UserList.getUserByID(POST_userID)
+        # Gets absolute path of user data directory
         currPath = os.path.dirname(__file__)
         relativePath = "userdata" + user.getDirectory()
         fullPath = os.path.join(currPath, relativePath)
+
+        # Uses this absolute path to list all files in this directory
         filesList = os.listdir(fullPath)
-        fileDirectory = filesList[index]
-        actualPath = currPath + "/" + relativePath + filesList[index]
+
+        # POST_index was passed from ajax call
+        # Grab that specific file
+        fileDirectory = filesList[POST_index]
+        filePath = os.path.join(relativePath, fileDirectory)
+
+        # Run it as a subprocess terminal command
         import subprocess
-        # Checks if Windows Platform
-        if os.name == "nt":
-            subprocess.Popen("python " + actualPath)
-            # subprocess.Popen("python userdata/peter/A3.py")
-        # Otherwise on macOS / OSX
-        else:
-            subprocess.Popen("python3 " + actualPath)
-        return "Good"
+        command = ["python3", filePath]
+        subprocess.Popen(command)
+
+        return "Success"
+
     # Should only be a POST
     else:
         error = "This is a restricted page. Please login to continue."
@@ -152,7 +155,9 @@ def runCode():
 def pageNotFound(e):
     return render_template("404.html"), 404
 
+# Key is necessary to store session variables
 app.secret_key = "ITP115"
 
+# Runs the application
 if __name__ == "__main__":
     app.run()

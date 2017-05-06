@@ -20,7 +20,9 @@ class User():
         filesList = os.listdir(fullPath)
         for file in filesList:
             projectPath = os.path.join(fullPath, file)
-            storiesList.append(Story(projectPath, file.split(".")[0]))
+            # Use the file name (sans the file ext) as the caption
+            caption = file.split(".")[0]
+            storiesList.append(Story(projectPath, caption))
         # Stories List
         self.__storiesList = storiesList
 
