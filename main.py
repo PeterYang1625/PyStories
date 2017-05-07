@@ -32,11 +32,13 @@ def login():
                 # Save UID to a session variable
                 session["uid"] = user.getUID()
             # Else password does not match
+            message = "Password does not match"
         # Else, user is not found
+        message = "User not found"
         if success:
             return redirect(url_for("feed"))
         else:
-            message = "Login failed. Please try again"
+            # message = "Login failed. Please try again"
             return render_template("login.html", message=message)
     else:
         # Else method is GET - display login form
@@ -72,7 +74,7 @@ def upload():
         if isValidFile:
             # Get the directory of this current User.py script
             currPath = os.path.dirname(__file__)
-            relativePath = "userdata" + user.getDirectory()
+            relativePath = "/userdata" + user.getDirectory()
             projectPath = currPath + relativePath + filename
             input_file.save(projectPath)
         else:
@@ -140,7 +142,7 @@ def runCode():
 
         # Run it as a subprocess terminal command
         import subprocess
-        command = ["python3", filePath]
+        command = ["python", filePath]
         subprocess.Popen(command)
 
         return "Success"

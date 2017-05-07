@@ -31,6 +31,6 @@ class UserList():
             # Must be case sensitive
             if User.getName() == username:
                 return User
-            # Return false on user not found
-            else:
-                return False
+        # Return false on user not found
+        else:
+            return False

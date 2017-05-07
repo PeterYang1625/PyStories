@@ -4,7 +4,7 @@ import os
 
 class User():
     userID = 0
-    def __init__(self, name, password, directory="/", imageURL="/static/img/default_profile.jpg"):
+    def __init__(self, name, password, directory, imageURL="/static/img/default_profile.jpg"):
         # Username
         self.__name = name
         # Directory of data stored

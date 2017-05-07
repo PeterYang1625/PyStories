@@ -30,7 +30,9 @@
             STORIES.currIndex++
             showStory(STORIES.currIndex)
             runner = document.getElementById("run")
-            runner.onclick = runcode({{uid}}, STORIES.currIndex)
+            runner.onclick = function() {
+                runcode({{uid}}, STORIES.currIndex)
+            }
         }
     }
     function backwards() {
@@ -39,7 +41,9 @@
             STORIES.currIndex--
             showStory(STORIES.currIndex)
             runner = document.getElementById("run")
-            runner.onclick = runcode({{uid}}, STORIES.currIndex)
+            runner.onclick = function() {
+                runcode({{uid}}, STORIES.currIndex)
+            }
         }
     }
     function showStory(index) {
