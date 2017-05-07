@@ -46,9 +46,10 @@ def login():
 
 @app.route("/feed")
 def feed():
+    message = request.args.get("message")
     users = UserList.users
     # Pass users to the render template which will iteratively render all of them
-    return render_template("feed_components.html", users=users)
+    return render_template("feed_components.html", users=users, message=message)
 
 def isValidFileType(filename):
     ALLOWED_EXTENSIONS = ("py")

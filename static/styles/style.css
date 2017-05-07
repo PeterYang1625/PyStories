@@ -83,11 +83,14 @@ input {
     width: 100%;
     color: white;
     background: rgb(153, 27, 30);
-    animation: slideDown 0.5s;
+    animation: slideDownUp 3s;
+    animation-fill-mode: both;
 }
-@keyframes slideDown {
-    from { top: -3rem }
-    to { top: 0rem }
+@keyframes slideDownUp {
+    0% { top: -3rem; }
+    25% { top: 0rem; }
+    50% { top: 0rem; }
+    100% { top: -3rem; }
 }
 /*
     END General Style
